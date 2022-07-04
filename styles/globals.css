@@ -27,8 +27,8 @@ header {
     justify-content: space-around;
     width: 100%;
     width: 100vw;
-    height: 100px;
-    height: 10vh;
+
+    min-height: fit-content;
     font-size: 2.5rem;
     text-align: center;
     padding-bottom: 5px;

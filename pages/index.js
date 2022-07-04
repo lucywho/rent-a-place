@@ -106,14 +106,14 @@ export default function Home() {
                         </div>
                         <div className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
                             <img
-                                src="/assets/1.jpg"
+                                src="/assets/4.jpg"
                                 className="w-full h-full object-center object-cover"
                             />
                         </div>
                     </div>
                     <div className="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4">
                         <img
-                            src="/assets/4.jpg"
+                            src="/assets/5.jpg"
                             className="w-full h-full object-center object-cover"
                         />
                     </div>
