@@ -10,13 +10,7 @@ export default function Heading() {
                 <link rel="icon" href="/house.ico" />
             </Head>
             <header>
-                <Image
-                    src="/house.ico"
-                    alt="image of house"
-                    width={75}
-                    height={50}
-                />
-                <h1>Welcome!</h1>
+                <h1>Welcome to High Hallgarth Cottage</h1>
             </header>
         </div>
     )

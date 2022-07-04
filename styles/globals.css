@@ -1,5 +1,5 @@
 :root {
-    --bk-main: #263238;
+    --bk-main: #222b36;
     --text-main: #cfd8dc;
 }
 html,
@@ -32,7 +32,7 @@ header {
     font-size: 2.5rem;
     text-align: center;
     padding-bottom: 5px;
-    border-bottom: green 2px solid;
+    border-bottom: var(--text-main) 2px solid;
 }
 
 /* notes:
