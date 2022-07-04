@@ -1,9 +1,15 @@
+:root {
+    --bk-main: #263238;
+    --text-main: #cfd8dc;
+}
 html,
 body {
     padding: 0;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
         Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background-color: var(--bk-main);
+    color: var(--text-main);
 }
 
 a {
@@ -28,6 +34,10 @@ header {
     padding-bottom: 5px;
     border-bottom: green 2px solid;
 }
+
+/* notes:
+text-main: #cfd8dc : blue-grey-100
+bk-main: #263238 :blue-grey-900 */
 
 @tailwind base;
 @tailwind components;
