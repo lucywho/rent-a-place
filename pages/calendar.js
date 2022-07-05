@@ -1,6 +1,8 @@
 import Link from "next/link"
+import Image from "next/image"
 import { DayPicker } from "react-day-picker"
 import "react-day-picker/dist/style.css"
+import { getCost } from "lib/cost"
 import { isDaySelectable } from "lib/dates"
 
 export default function Calendar() {
@@ -11,9 +13,11 @@ export default function Calendar() {
                     <div className="absolute inset-x-0 bottom-0 h-1/2"></div>
 
                     <div className="absolute inset-0 ">
-                        <img
+                        <Image
                             className="h-full w-full object-cover opacity-40 border-b-2 border-black"
                             src="/assets/1.jpg"
+                            layout="fill"
+                            alt="photo of cottage"
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-gray-100 to-gray-200 mix-blend-multiply "></div>
                     </div>
@@ -35,24 +39,31 @@ export default function Calendar() {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col mt-10 w-2/3 mx-auto ">
-                    <p className="text-2xl font-bold text-center my-10 w-2/3 mx-auto  ">
+                <div className="flex flex-col mt-10  mx-auto ">
+                    <p className="text-2xl font-bold text-center my-10 mx-auto  ">
                         Availability and prices per night
                     </p>
 
-                    <div className="pt-6 flex justify-center availability-calendar w-2/3 mx-auto ">
+                    <div className="pt-6 flex justify-center availability-calendar mx-auto w-full ">
                         <DayPicker
                             components={{
                                 DayContent: (props) => (
-                                    <div className="relative text-right">
-                                        <div
-                                            className={
-                                                !isDaySelectable(props.date) &&
-                                                "text-gray-500"
-                                            }
-                                        >
-                                            {props.date.getDate()}
-                                        </div>
+                                    <div
+                                        className={`relative text-right  ${
+                                            !isDaySelectable(props.date) &&
+                                            "text-gray-500"
+                                        }`}
+                                    >
+                                        <div>{props.date.getDate()}</div>
+                                        {isDaySelectable(props.date) && (
+                                            <div>
+                                                <span
+                                                    className={`bg-gray-100 text-gray-900 rounded-md font-bold text-sm px-1`}
+                                                >
+                                                    €{getCost(props.date)}
+                                                </span>
+                                            </div>
+                                        )}
                                     </div>
                                 ),
                             }}
