@@ -58,9 +58,11 @@ export default function Home() {
         <div>
             <div className="relative">
                 <div className="absolute inset-0">
-                    <img
+                    <Image
                         className="h-full w-full object-cover opacity-40 border-b-2 border-black"
                         src="/assets/1.jpg"
+                        layout="fill"
+                        alt="photo of cottage"
                     />
                 </div>
                 <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8  ">
@@ -95,6 +97,7 @@ export default function Home() {
                         <img
                             src="/assets/2.jpg"
                             className="w-full h-full object-center object-cover"
+                            alt="mountains reflected in a lake"
                         />
                     </div>
                     <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
@@ -102,12 +105,14 @@ export default function Home() {
                             <img
                                 src="/assets/3.jpg"
                                 className="w-full h-full object-center object-cover"
+                                alt="lake surrounded by mountains"
                             />
                         </div>
                         <div className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
                             <img
                                 src="/assets/4.jpg"
                                 className="w-full h-full object-center object-cover"
+                                alt="wooden jetty over a lake"
                             />
                         </div>
                     </div>
@@ -115,6 +120,7 @@ export default function Home() {
                         <img
                             src="/assets/5.jpg"
                             className="w-full h-full object-center object-cover"
+                            alt="sheep on a hillside"
                         />
                     </div>
                 </div>
