@@ -5,9 +5,46 @@ import "react-day-picker/dist/style.css"
 import { DayPicker } from "react-day-picker"
 
 import { getCost } from "lib/cost"
-import { isDaySelectable } from "lib/dates"
+import { isDaySelectable, addDayToRange, getDatesBetweenDates } from "lib/dates"
 
 export default function Calendar() {
+    const [from, setFrom] = useState()
+    const [to, setTo] = useState()
+
+    const handleDayClick = (day) => {
+        const range = addDayToRange(day, {
+            from,
+            to,
+        })
+
+        if (!range.to) {
+            if (!isDaySelectable(range.from)) {
+                alert("Date not available")
+                return
+            }
+            range.to = range.from
+        }
+
+        if (range.to && range.from) {
+            if (!isDaySelectable(range.to)) {
+                alert("The end date cannot be selected")
+                return
+            }
+        }
+
+        const daysInBetween = getDatesBetweenDates(range.from, range.to)
+
+        for (const dayInBetween of daysInBetween) {
+            if (!isDaySelectable(dayInBetween)) {
+                alert("Some of your selected dates are not available")
+                return
+            }
+        }
+
+        setFrom(range.from)
+        setTo(range.to)
+    }
+
     return (
         <div>
             <div className="relative overflow-hidden">
@@ -25,10 +62,8 @@ export default function Calendar() {
                     </div>
                     <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8 ">
                         <h1 className="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-gray-200 ">
-                            A Charming Cottage
-                            <span className="block">
-                                in the heart of the English Lake District
-                            </span>
+                            High Hallgarth
+                            <span className="block">Cottage</span>
                         </h1>{" "}
                         <div className="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center ">
                             <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5 ">
@@ -48,6 +83,11 @@ export default function Calendar() {
 
                     <div className="pt-6 flex justify-center availability-calendar mx-auto w-full ">
                         <DayPicker
+                            // renderDay={/* */}
+                            selected={[from, { from, to }]}
+                            modifiers={{ start: from, end: to }}
+                            mode="range"
+                            onDayClick={handleDayClick}
                             components={{
                                 DayContent: (props) => (
                                     <div
