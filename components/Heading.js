@@ -9,6 +9,7 @@ export default function Heading() {
                 <title>Rent-A-Place</title>
                 <meta name="description" content="Rental Apartment Website" />
                 <link rel="icon" href="/house.ico" />
+                <script src="https://js.stripe.com/v3/"></script>
             </Head>
 
             <header className="max-w-full">
@@ -17,6 +18,10 @@ export default function Heading() {
                 )}
                 {router.asPath === "/calendar" && (
                     <h1>Check availability and prices</h1>
+                )}
+
+                {router.asPath === "/success" && (
+                    <h1>Thank you for choosing High Hallgarth</h1>
                 )}
             </header>
         </div>

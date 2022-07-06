@@ -89,7 +89,7 @@ export default function Calendar() {
                             <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5 ">
                                 <Link href={`/`}>
                                     <a className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-800 hover:text-gray-200 sm:px-8">
-                                        ⬅ Back to the house details
+                                        ⬅ Back to the cottage details
                                     </a>
                                 </Link>
                             </div>
@@ -102,15 +102,50 @@ export default function Calendar() {
                     </p>
                     <p className="text-center">
                         {numberOfNights > 0 &&
-                            `Stay for ${numberOfNights} nights`}
+                            `Stay for ${numberOfNights} night`}
+                        {numberOfNights > 1 && `s`}
                     </p>
                     <p className="text-center mt-2">
-                        {totalCost > 0 && `Total cost: $${totalCost}`}
+                        {totalCost > 0 && `Total cost: €${totalCost}`}
                     </p>
-                    <p className="text-center">
+                    <p className="text-center w-2/3 mx-auto ">
+                        {numberOfNights > 0 && (
+                            <button
+                                className="border mr-2 px-2 py-1 mt-4 font-bold rounded-md hover:bg-green-300 hover:text-green-900 bg-blue-200 text-gray-900"
+                                onClick={async () => {
+                                    const res = await fetch(
+                                        "/api/stripe/session",
+                                        {
+                                            body: JSON.stringify({
+                                                from,
+                                                to,
+                                            }),
+                                            headers: {
+                                                "Content-Type":
+                                                    "application/json",
+                                            },
+                                            method: "POST",
+                                        }
+                                    )
+                                    const data = await res.json()
+                                    const sessionId = data.sessionId
+                                    const stripePublicKey = data.stripePublicKey
+
+                                    const stripe = Stripe(stripePublicKey)
+                                    const { error } =
+                                        await stripe.redirectToCheckout({
+                                            sessionId,
+                                        })
+
+                                    if (error) console.log(error)
+                                }}
+                            >
+                                Book now
+                            </button>
+                        )}
                         {from && to && (
                             <button
-                                className="border px-2 py-1 mt-4"
+                                className="border px-2 py-1 mt-4 rounded-md hover:bg-gray-100 hover:text-gray-900"
                                 onClick={() => {
                                     setFrom(null)
                                     setTo(null)
@@ -122,9 +157,9 @@ export default function Calendar() {
                             </button>
                         )}
                     </p>
+
                     <div className="pt-6 flex justify-center availability-calendar mx-auto w-full ">
                         <DayPicker
-                            // renderDay={/* */}
                             selected={[from, { from, to }]}
                             modifiers={{ start: from, end: to }}
                             mode="range"
@@ -140,6 +175,7 @@ export default function Calendar() {
                                     to: new Date("4000"),
                                 },
                             ]}
+                            showWeekNumber
                             onDayClick={handleDayClick}
                             components={{
                                 DayContent: (props) => (
