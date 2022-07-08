@@ -1,5 +1,6 @@
 import prisma from "lib/prisma"
 import getRawBody from "raw-body"
+import sendEmail from "lib/email.js"
 
 export const config = {
     api: {
@@ -60,6 +61,23 @@ export default async (req, res) => {
                     sessionId,
                 },
             })
+            sendEmail(
+                "HighHallgarth-bookings@HHbookings.com",
+                "New booking",
+                `${email} booked from ${new Date(
+                    booking.from
+                ).toDateString()} to ${new Date(booking.to).toDateString()}`
+            )
+
+            sendEmail(
+                email,
+                "Thankyou for choosing High Hallgarth",
+                `Your booking from ${new Date(
+                    booking.from
+                ).toDateString()} to ${new Date(
+                    booking.to
+                ).toDateString()} is confirmed! If you need any more help or information, just reply to this email.`
+            )
         } catch (err) {
             console.error(err)
         }
